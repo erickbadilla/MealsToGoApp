@@ -5,7 +5,9 @@
   },
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true
-    }
+      "jsx": true,
+      "modules": true
+    },
+    "ecmaVersion": 2021
   }
 }
