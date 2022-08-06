@@ -14,6 +14,15 @@ export const RestaurantsContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const { location } = useContext(LocationContext);
 
+  useEffect(() => {
+    if (!location) {
+      return;
+    }
+
+    const locationString = `${location.lat},${location.lng}`;
+    retriveRestaurants(locationString);
+  }, [location]);
+
   const retriveRestaurants = (restaurantLocation) => {
     setIsLoading(true);
     setRestaurants([]);
@@ -30,15 +39,6 @@ export const RestaurantsContextProvider = ({ children }) => {
       setIsLoading(false);
     }, 2000);
   };
-
-  useEffect(() => {
-    if (!location) {
-      return;
-    }
-
-    const locationString = `${location.lat},${location.lng}`;
-    retriveRestaurants(locationString);
-  }, [location]);
 
   return (
     <RestaurantContext.Provider

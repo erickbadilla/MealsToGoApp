@@ -17,6 +17,7 @@ import { Spacer } from "../../../../components/spacer/spacer.component";
 
 import star from "../../../../../assets/star.js";
 import open from "../../../../../assets/open.js";
+import { Favourite } from "../../../../components/favourites/favourites.component";
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
@@ -36,6 +37,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
 
   return (
     <RestaurantCard elevation={5}>
+      <Favourite restaurant={restaurant} />
       <RestaurantCardCover source={{ uri: photos[0] }} />
       <Info>
         <Text variant="label">{name}</Text>

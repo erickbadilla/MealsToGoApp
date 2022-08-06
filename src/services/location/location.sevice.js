@@ -24,5 +24,6 @@ export const locationAPITransform = (apiResult) => {
   return {
     lat,
     lng,
+    viewport: geometry.viewport,
   };
 };
