@@ -12,9 +12,9 @@ export const Favourite: FunctionComponent<FavouritesProps> = ({
 }) => {
   const { addFavorite, removeFavorite, favorites } = useFavoritesContext();
 
-  const isFavorite = useMemo(() => {
-    return !!favorites.find(({ placeId }) => placeId === restaurant.placeId);
-  }, [favorites, restaurant]);
+  const isFavorite = !!favorites.find(
+    ({ placeId }) => placeId === restaurant.placeId
+  );
 
   const handlePress = () => {
     !isFavorite ? addFavorite(restaurant) : removeFavorite(restaurant);
