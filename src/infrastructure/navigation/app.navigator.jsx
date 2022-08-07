@@ -16,12 +16,11 @@ const Settings = () => (
   </SafeArea>
 );
 
-const TAB_ICON_NAMES = {
+const TAB_ICON_NAMES = Object.freeze({
   RestaurantsTab: "restaurant-outline",
   MapTab: "map-outline",
   SettingsTab: "settings-outline",
-};
-Object.freeze(TAB_ICON_NAMES);
+});
 
 const createScreenOptions = ({ route }) => {
   const iconName = TAB_ICON_NAMES[route.name];

@@ -11,7 +11,7 @@ import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/infrastructure/theme/index";
 import { RestaurantsContextProvider } from "./src/services/restaurants/restaurant.context";
 import { LocationContextProvider } from "./src/services/location/location.context";
-import { FavoritesProvider } from "./src/services/favorites/favorites.service";
+import { FavoritesProvider } from "./src/services/favorites/favorites.context";
 
 import { Navigation } from "./src/infrastructure/navigation";
 

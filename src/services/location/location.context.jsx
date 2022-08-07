@@ -14,7 +14,7 @@ export const LocationContextProvider = ({ children }) => {
       return;
     }
 
-    setTimeout(async () => {
+    const timeout = setTimeout(async () => {
       try {
         const result = await locationRequestAPI(keyword);
         setLocation(locationAPITransform(result));
@@ -24,6 +24,10 @@ export const LocationContextProvider = ({ children }) => {
 
       setIsLoading(false);
     }, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [keyword]);
 
   const search = (searchKeyword) => {

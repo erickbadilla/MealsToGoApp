@@ -1,9 +1,8 @@
-import React, { FunctionComponent, useCallback, useMemo } from "react";
-import { useFavoritesService } from "../../services/favorites/favorites.service";
+import React, { FunctionComponent, useMemo } from "react";
+import { useFavoritesContext } from "../../../services/favorites/favorites.context";
 import { FavouriteButton } from "./favourites.styles";
 import { AntDesign } from "@expo/vector-icons";
-import { Restaurant } from "../../services/models/restaurant";
-
+import { Restaurant } from "../../../services/models/restaurant";
 interface FavouritesProps {
   restaurant: Restaurant;
 }
@@ -11,15 +10,15 @@ interface FavouritesProps {
 export const Favourite: FunctionComponent<FavouritesProps> = ({
   restaurant,
 }) => {
-  const { addFavorite, removeFavorite, favorites } = useFavoritesService();
+  const { addFavorite, removeFavorite, favorites } = useFavoritesContext();
 
   const isFavorite = useMemo(() => {
     return !!favorites.find(({ placeId }) => placeId === restaurant.placeId);
   }, [favorites, restaurant]);
 
-  const handlePress = useCallback(() => {
+  const handlePress = () => {
     !isFavorite ? addFavorite(restaurant) : removeFavorite(restaurant);
-  }, [addFavorite, removeFavorite]);
+  };
 
   return (
     <FavouriteButton onPress={handlePress}>

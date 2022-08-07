@@ -2,13 +2,13 @@ import React, { useContext, useState, useEffect, Fragment } from "react";
 import { Map } from "./map.styles";
 import { Search } from "../../components/search/search.component";
 import { LocationContext } from "../../../../services/location/location.context";
-import { RestaurantContext } from "../../../../services/restaurants/restaurant.context";
+import { useRestaurantContext } from "../../../../services/restaurants/restaurant.context";
 import { Marker, Callout } from "react-native-maps";
 import { CompactRestaurantInfo } from "../../../../components/restaurant/compact-restaurant-info/compact-restaurant.component";
 
 export const MapScreen = ({ navigation }) => {
   const { location } = useContext(LocationContext);
-  const { restaurants = [] } = useContext(RestaurantContext);
+  const { restaurants } = useRestaurantContext();
 
   const [latDelta, setLatDelta] = useState(0);
 
@@ -47,7 +47,7 @@ export const MapScreen = ({ navigation }) => {
                 })
               }
             >
-              <CompactRestaurantInfo restaurant={restaurant} />
+              <CompactRestaurantInfo isMap restaurant={restaurant} />
             </Callout>
           </Marker>
         ))}

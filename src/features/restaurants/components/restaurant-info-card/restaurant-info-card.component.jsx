@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { SvgXml } from "react-native-svg";
 import { Text } from "../../../../components/typography/text.component";
 
@@ -17,7 +17,7 @@ import { Spacer } from "../../../../components/spacer/spacer.component";
 
 import star from "../../../../../assets/star.js";
 import open from "../../../../../assets/open.js";
-import { Favourite } from "../../../../components/favourites/favourites.component";
+import { Favourite } from "../../../../components/favourites/favourites-icon/favourites.component";
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
@@ -33,7 +33,10 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     placeId,
   } = restaurant;
 
-  const ratingIter = new Array(Math.floor(rating)).fill(0);
+  const ratingIter = useMemo(
+    () => Array.from(Array(Math.floor(rating))),
+    [rating]
+  );
 
   return (
     <RestaurantCard elevation={5}>

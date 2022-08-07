@@ -9,10 +9,14 @@ import { LocationContext } from "../../../../services/location/location.context"
 import { SearchContainer } from "./search.styles";
 
 interface ISearchProps {
-  onToggle: () => void;
+  isFavouritesToggled: boolean;
+  onFavouritesToggle: () => void;
 }
 
-export const Search: FunctionComponent<ISearchProps> = ({ onToggle }) => {
+export const Search: FunctionComponent<ISearchProps> = ({
+  onFavouritesToggle,
+  isFavouritesToggled,
+}) => {
   const { keyword, search } = useContext(LocationContext);
   const [searchKeyword, setSearchKeyword] = useState(keyword);
 
@@ -23,8 +27,9 @@ export const Search: FunctionComponent<ISearchProps> = ({ onToggle }) => {
   return (
     <SearchContainer>
       <Searchbar
-        icon="heart"
-        onIconPress={onToggle}
+        icon={isFavouritesToggled ? "heart" : "heart-outline"}
+        iconColor={isFavouritesToggled ? "red" : undefined}
+        onIconPress={onFavouritesToggle}
         placeholder="Search for a location"
         value={searchKeyword}
         onSubmitEditing={() => search(searchKeyword)}
