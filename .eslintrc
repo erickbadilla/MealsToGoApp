@@ -8,6 +8,7 @@
       "jsx": true,
       "modules": true
     },
-    "ecmaVersion": 2021
-  }
+    "ecmaVersion": "latest"
+  },
+  "comma-dangle": 0
 }

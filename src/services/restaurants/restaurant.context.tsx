@@ -20,7 +20,7 @@ interface IRestaurantContext {
 }
 
 const RestaurantContext = createContext<IRestaurantContext | undefined>(
-  undefined
+  undefined,
 );
 
 export const RestaurantsContextProvider: FunctionComponent = ({ children }) => {
@@ -73,7 +73,7 @@ export const useRestaurantContext = (): IRestaurantContext => {
 
   if (context === undefined) {
     throw new Error(
-      "useRestaurantContext must be used within a RestaurantContext Provider"
+      "useRestaurantContext must be used within a RestaurantContext Provider",
     );
   }
 

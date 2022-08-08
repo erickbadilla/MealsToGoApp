@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useMemo } from "react";
+import React, { FunctionComponent } from "react";
 import { useFavoritesContext } from "../../../services/favorites/favorites.context";
 import { FavouriteButton } from "./favourites.styles";
 import { AntDesign } from "@expo/vector-icons";
@@ -13,7 +13,7 @@ export const Favourite: FunctionComponent<FavouritesProps> = ({
   const { addFavorite, removeFavorite, favorites } = useFavoritesContext();
 
   const isFavorite = !!favorites.find(
-    ({ placeId }) => placeId === restaurant.placeId
+    ({ placeId }) => placeId === restaurant.placeId,
   );
 
   const handlePress = () => {

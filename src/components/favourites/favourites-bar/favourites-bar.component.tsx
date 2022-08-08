@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { FunctionComponent, Fragment } from "react";
+import React, { FunctionComponent } from "react";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { RestaurantNavigation } from "../../../infrastructure/navigation/restaurant.navigator";
 import { Restaurant } from "../../../services/models/restaurant";

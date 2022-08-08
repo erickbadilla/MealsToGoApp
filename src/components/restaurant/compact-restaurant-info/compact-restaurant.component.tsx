@@ -12,7 +12,7 @@ const isAndroid = Platform.OS === "android";
 
 interface CompactRestaurantInfoProps {
   restaurant: Restaurant;
-  isMap: boolean;
+  isMap?: boolean;
 }
 
 export const CompactRestaurantInfo: FunctionComponent<
@@ -21,7 +21,9 @@ export const CompactRestaurantInfo: FunctionComponent<
   //This solution is needed because in Android the image loading during mount doesnt resolve as in and IOS Device
   //This may be a common issue with react native and other libraries. This bug just happens with the Map Component Library
   //Thats why we render a CompactWebView with the Maps, if not we just render the normal component of react native Image
-  const Image = isAndroid && isMap ? CompactWebview : CompactImage;
+  const Image = (
+    isAndroid && isMap ? CompactWebview : CompactImage
+  ) as React.ElementType;
 
   return (
     <Item>
