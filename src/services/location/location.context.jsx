@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useCallback } from "react";
 import { locationRequestAPI, locationAPITransform } from "./location.sevice";
 
 export const LocationContext = createContext();
@@ -14,7 +14,7 @@ export const LocationContextProvider = ({ children }) => {
       return;
     }
 
-    const timeout = setTimeout(async () => {
+    (async () => {
       try {
         const result = await locationRequestAPI(keyword);
         setLocation(locationAPITransform(result));
@@ -23,17 +23,13 @@ export const LocationContextProvider = ({ children }) => {
       }
 
       setIsLoading(false);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
+    })();
   }, [keyword]);
 
-  const search = (searchKeyword) => {
+  const search = useCallback((searchKeyword) => {
     setIsLoading(true);
     setKeyword(searchKeyword);
-  };
+  }, []);
 
   return (
     <LocationContext.Provider

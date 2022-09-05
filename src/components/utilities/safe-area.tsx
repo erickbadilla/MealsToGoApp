@@ -6,4 +6,5 @@ import { isAndroid } from "../../utils/devices";
 export const SafeArea = styled(SafeAreaView)`
   flex: 1;
   margin-top: ${isAndroid() ? `${StatusBar.currentHeight}` : "0"}px;
+  background-color: ${({ theme }) => theme.colors.bg.primary};
 `;

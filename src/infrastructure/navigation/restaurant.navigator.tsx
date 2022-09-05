@@ -5,6 +5,7 @@ import {
   StackNavigationProp,
   TransitionPresets,
 } from "@react-navigation/stack";
+
 import { RestaurantsScreen } from "../../features/restaurants/screens/restaurant/restaurant.screen";
 import { RestaurantDetailScreen } from "../../features/restaurants/screens/restaurant-detail/restaurant-detail.screen";
 import { Restaurant } from "../../services/models/restaurant";

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { useFavoritesContext } from "../../../services/favorites/favorites.context";
+import { useFavoritesContext } from "../../../services/favorites/favourites.context";
 import { FavouriteButton } from "./favourites.styles";
 import { AntDesign } from "@expo/vector-icons";
 import { Restaurant } from "../../../services/models/restaurant";
@@ -10,10 +10,14 @@ interface FavouritesProps {
 export const Favourite: FunctionComponent<FavouritesProps> = ({
   restaurant,
 }) => {
-  const { addFavorite, removeFavorite, favorites } = useFavoritesContext();
+  const {
+    addFavorite,
+    removeFavorite,
+    favourites: favorites,
+  } = useFavoritesContext();
 
   const isFavorite = !!favorites.find(
-    ({ placeId }) => placeId === restaurant.placeId,
+    ({ placeId }) => placeId === restaurant.placeId
   );
 
   const handlePress = () => {
@@ -21,7 +25,13 @@ export const Favourite: FunctionComponent<FavouritesProps> = ({
   };
 
   return (
-    <FavouriteButton onPress={handlePress}>
+    <FavouriteButton
+      onPress={() => {
+        requestAnimationFrame(() => {
+          handlePress();
+        });
+      }}
+    >
       <AntDesign
         name={isFavorite ? "heart" : "hearto"}
         size={24}

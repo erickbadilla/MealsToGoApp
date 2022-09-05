@@ -1,46 +1,30 @@
 import React, { useState, FunctionComponent, useCallback } from "react";
 
-import { TouchableOpacity } from "react-native";
-import { RestaurantList } from "./restaurant.styles";
-import { Spacer } from "../../../../components/spacer/spacer.component.jsx";
-import { SafeArea } from "../../../../components/utilities/safe-area.jsx";
+import { RestaurantList } from "../../components/restaurant-list/restaurant-list.styles";
+import { SafeArea } from "../../../../components/utilities/safe-area";
 import { Search } from "../../components/search/search.component";
-import { RestaurantInfoCard } from "../../components/restaurant-info-card/restaurant-info-card.component";
 import { useRestaurantContext } from "../../../../services/restaurants/restaurant.context";
 import { Colors } from "react-native-paper";
 import { Spinner } from "../../../../components/spinner/spinner.component.jsx";
 import { FavouriteBar } from "../../../../components/favourites/favourites-bar/favourites-bar.component";
-import { useFavoritesContext } from "../../../../services/favorites/favorites.context";
-import { Restaurant } from "../../../../services/models/restaurant";
-import { useNavigation } from "@react-navigation/native";
-import { RestaurantNavigation } from "../../../../infrastructure/navigation/restaurant.navigator";
+import { useFavoritesContext } from "../../../../services/favorites/favourites.context";
+import { RestaurantListItem } from "../../components/restaurant-list-item/restaurant-list-item.component";
+import { FadeInView } from "../../../../components/animations/fade.animation";
 
 export const RestaurantsScreen: FunctionComponent = () => {
-  const navigation = useNavigation<RestaurantNavigation>();
   const { restaurants, isLoading } = useRestaurantContext();
   const [isToggled, setIsToggled] = useState<boolean>(false);
-  const { favorites } = useFavoritesContext();
-
-  const renderRestaurant = useCallback(
-    ({ item }: { item: Restaurant }) => {
-      return (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("RestaurantDetailStack", {
-              restaurant: item,
-            })
-          }
-        >
-          <Spacer position="bottom" size="large" key={`card-${item.placeId}`}>
-            <RestaurantInfoCard restaurant={item} />
-          </Spacer>
-        </TouchableOpacity>
-      );
-    },
-    [navigation]
-  );
+  const { favourites: favorites } = useFavoritesContext();
 
   const keyExtractor = useCallback(({ name }) => name, []);
+  const renderItem = useCallback(
+    ({ item }) => (
+      <FadeInView duration={800}>
+        <RestaurantListItem item={item} />
+      </FadeInView>
+    ),
+    []
+  );
 
   return (
     <SafeArea>
@@ -54,7 +38,7 @@ export const RestaurantsScreen: FunctionComponent = () => {
 
       <RestaurantList
         data={restaurants}
-        renderItem={renderRestaurant}
+        renderItem={renderItem}
         keyExtractor={keyExtractor}
       />
     </SafeArea>

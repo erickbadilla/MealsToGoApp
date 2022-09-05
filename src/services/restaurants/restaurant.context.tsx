@@ -20,7 +20,7 @@ interface IRestaurantContext {
 }
 
 const RestaurantContext = createContext<IRestaurantContext | undefined>(
-  undefined,
+  undefined
 );
 
 export const RestaurantsContextProvider: FunctionComponent = ({ children }) => {
@@ -42,7 +42,7 @@ export const RestaurantsContextProvider: FunctionComponent = ({ children }) => {
     setIsLoading(true);
     setRestaurants([]);
 
-    setTimeout(async () => {
+    (async () => {
       try {
         const result = await RestaurantRequest(restaurantLocation);
 
@@ -52,7 +52,7 @@ export const RestaurantsContextProvider: FunctionComponent = ({ children }) => {
       }
 
       setIsLoading(false);
-    }, 1000);
+    })();
   };
 
   const restaurantContext: IRestaurantContext = {
@@ -73,7 +73,7 @@ export const useRestaurantContext = (): IRestaurantContext => {
 
   if (context === undefined) {
     throw new Error(
-      "useRestaurantContext must be used within a RestaurantContext Provider",
+      "useRestaurantContext must be used within a RestaurantContext Provider"
     );
   }
 

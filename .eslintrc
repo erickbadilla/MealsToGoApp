@@ -1,14 +1,16 @@
 {
   "extends": "@react-native-community",
   "rules": {
-    "quotes": [2, "double", { "avoidEscape": true }]
+    "quotes": [2, "double", { "avoidEscape": true }],
+    "comma-dangle": "off"
   },
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true,
       "modules": true
     },
-    "ecmaVersion": "latest"
+    "sourceType": "module",
+    "ecmaVersion": 12
   },
-  "comma-dangle": 0
+  "ignorePatterns": ["/functions/lib/**"]
 }

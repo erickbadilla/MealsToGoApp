@@ -1,16 +1,17 @@
 import React, {
   createContext,
-  FC,
   useState,
   useContext,
   useCallback,
   useEffect,
+  FunctionComponent,
 } from "react";
 import { Restaurant } from "../models/restaurant";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuthentication } from "../auth/authentication.context";
 
 interface IFavoritesContext {
-  favorites: Restaurant[];
+  favourites: Restaurant[];
   addFavorite: (restaurant: Restaurant) => void;
   removeFavorite: (restaurant: Restaurant) => void;
 }
@@ -19,23 +20,27 @@ const FavoritesContext = createContext<IFavoritesContext | undefined>(
   undefined
 );
 
-export const FavoritesProvider: FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const FavoritesProvider: FunctionComponent<{
+  children: React.ReactNode;
+}> = ({ children }) => {
   const [favourites, setFavourites] = useState<Restaurant[]>([]);
+  const { user } = useAuthentication();
 
-  const saveFavourites = useCallback(async (restaurant: Restaurant[]) => {
-    try {
-      const serializedJSON = JSON.stringify(restaurant);
-      await AsyncStorage.setItem("@favourites", serializedJSON);
-    } catch (e) {
-      console.error("Error storing", e);
-    }
-  }, []);
+  const saveFavourites = useCallback(
+    async (restaurant: Restaurant[], userUID: string) => {
+      try {
+        const serializedJSON = JSON.stringify(restaurant);
+        await AsyncStorage.setItem(`@favourites-${userUID}`, serializedJSON);
+      } catch (e) {}
+    },
+    []
+  );
 
-  const loadFavourites = useCallback(async () => {
+  const loadFavourites = useCallback(async (userUID: string) => {
     try {
-      const serializedJSON = await AsyncStorage.getItem("@favourites");
+      const serializedJSON = await AsyncStorage.getItem(
+        `@favourites-${userUID}`
+      );
 
       if (!serializedJSON) {
         return;
@@ -44,9 +49,7 @@ export const FavoritesProvider: FC<{ children: React.ReactNode }> = ({
       const storedFavourites: Restaurant[] = JSON.parse(serializedJSON);
 
       setFavourites(storedFavourites);
-    } catch (e) {
-      console.error("Error loading", e);
-    }
+    } catch (e) {}
   }, []);
 
   const addFavorite = useCallback((restaurant: Restaurant) => {
@@ -62,15 +65,20 @@ export const FavoritesProvider: FC<{ children: React.ReactNode }> = ({
   const favoritesContext: IFavoritesContext = {
     addFavorite,
     removeFavorite,
-    favorites: favourites,
+    favourites,
   };
 
   useEffect(() => {
-    loadFavourites();
-  }, [loadFavourites]);
+    if (user) {
+      loadFavourites(user.uid);
+    }
+  }, [loadFavourites, user]);
+
   useEffect(() => {
-    saveFavourites(favourites);
-  }, [favourites, saveFavourites]);
+    if (user) {
+      saveFavourites(favourites, user.uid);
+    }
+  }, [favourites, saveFavourites, user]);
 
   return (
     <FavoritesContext.Provider value={favoritesContext}>

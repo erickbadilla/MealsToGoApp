@@ -1,5 +1,6 @@
-import { mocks, mockImages } from "./mock/index";
+import { mockImages } from "./mock/index";
 import camelize from "camelize";
+import { HOST } from "../../utils/enviroment";
 
 export const restaurantAPITransform = ({ results = [] }) => {
   const mappedResults = results.map((restaurant) => {
@@ -19,14 +20,20 @@ export const restaurantAPITransform = ({ results = [] }) => {
   return camelize(mappedResults);
 };
 
-export const RestaurantRequest = (location = "37.7749295,-122.4194155") => {
-  return new Promise((resolve, reject) => {
-    const result = mocks[location];
+// `http://${
+//   isAndroid() ? "10.0.2.2" : "localhost"
+// }:5001/mealstogo-12157/us-central1/placesNearby?location=${location}`;
 
-    if (!result) {
-      reject(new Error("No result found"));
-    }
+export const RestaurantRequest = async (
+  location = "37.7749295,-122.4194155"
+) => {
+  try {
+    const response = await fetch(`${HOST}/placesNearby?location=${location}`);
 
-    resolve(result);
-  });
+    const { data } = await response.json();
+
+    return data;
+  } catch (e) {
+    return e;
+  }
 };
