@@ -6,6 +6,7 @@ import React, {
   FunctionComponent,
   useCallback,
 } from "react";
+import { unstable_batchedUpdates } from "react-native";
 import { useIsMounted } from "../../hooks/lifecycle-hooks";
 import { useLocation } from "../location/location.context";
 import { Restaurant } from "../models/restaurant";
@@ -44,9 +45,15 @@ export const RestaurantsContextProvider: FunctionComponent = ({ children }) => {
             return;
           }
 
-          setRestaurants(restaurantAPITransform(results));
+          unstable_batchedUpdates(() => {
+            setError(null);
+            setRestaurants(restaurantAPITransform(results));
+          });
         } catch (e) {
-          setError(e);
+          unstable_batchedUpdates(() => {
+            setError(e);
+            setRestaurants([]);
+          });
         }
 
         setIsLoading(false);

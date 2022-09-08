@@ -5,10 +5,12 @@ import { useLocation } from "../../../../services/location/location.context";
 import { useRestaurantContext } from "../../../../services/restaurants/restaurant.context";
 import { Marker, Callout } from "react-native-maps";
 import { CompactRestaurantInfo } from "../../../../components/restaurant/compact-restaurant-info/compact-restaurant.component";
+import { useNavigation } from "@react-navigation/native";
 
-export const MapScreen = ({ navigation }) => {
+const RestaurantMap = () => {
   const { location } = useLocation();
   const { restaurants } = useRestaurantContext();
+  const navigation = useNavigation();
 
   const [latDelta, setLatDelta] = useState(0);
 
@@ -54,4 +56,21 @@ export const MapScreen = ({ navigation }) => {
       </Map>
     </Fragment>
   );
+};
+
+export const MapScreen = () => {
+  const { location } = useLocation();
+
+  if (!location) {
+    return (
+      <Map
+        region={{
+          latitude: 0,
+          longitude: 0,
+        }}
+      />
+    );
+  }
+
+  return <RestaurantMap />;
 };

@@ -1,5 +1,4 @@
 import React, { useState, FunctionComponent, useCallback } from "react";
-
 import { RestaurantList } from "../../components/restaurant-list/restaurant-list.styles";
 import { SafeArea } from "../../../../components/utilities/safe-area";
 import { Search } from "../../components/search/search.component";
@@ -11,11 +10,21 @@ import { useFavoritesContext } from "../../../../services/favorites/favourites.c
 import { RestaurantListItem } from "../../components/restaurant-list-item/restaurant-list-item.component";
 import { FadeInView } from "../../../../components/animations/fade.animation";
 import { Restaurant } from "../../../../services/models/restaurant";
+import { useLocation } from "../../../../services/location/location.context";
+import { Text } from "../../../../components/typography/text.component";
+import { Spacer } from "../../../../components/spacer/spacer.component";
 
 export const RestaurantsScreen: FunctionComponent = () => {
-  const { restaurants, isLoading } = useRestaurantContext();
-  const [isToggled, setIsToggled] = useState<boolean>(false);
+  const {
+    restaurants,
+    isLoading,
+    error: restaurantError,
+  } = useRestaurantContext();
+  const { error: locationError } = useLocation();
   const { favourites: favorites } = useFavoritesContext();
+  const hasErrored: boolean = !!locationError || !!restaurantError;
+
+  const [isToggled, setIsToggled] = useState<boolean>(false);
 
   const keyExtractor = useCallback(({ name }) => name, []);
   const renderItem: FunctionComponent<{ item: Restaurant }> = useCallback(
@@ -37,11 +46,19 @@ export const RestaurantsScreen: FunctionComponent = () => {
 
       {isToggled && <FavouriteBar favourites={favorites} />}
 
-      <RestaurantList
-        data={restaurants}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-      />
+      {hasErrored && (
+        <Spacer position="left" size="large">
+          <Text variant="error">Something went wrong retriving the data.</Text>
+        </Spacer>
+      )}
+
+      {!hasErrored && (
+        <RestaurantList
+          data={restaurants}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+        />
+      )}
     </SafeArea>
   );
 };

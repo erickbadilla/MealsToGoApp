@@ -18,15 +18,11 @@ export const restaurantAPITransform = (results = []) => {
 export const RestaurantRequest = async (
   location = "37.7749295,-122.4194155"
 ) => {
-  try {
-    const response = await fetch(
-      `${HOST}/placesNearby?location=${location}&mock=${isMock}`
-    );
+  const response = await fetch(
+    `${HOST}/placesNearby?location=${location}&mock=${isMock}`
+  );
 
-    const { data } = await response.json();
+  const { data } = await response.json();
 
-    return data;
-  } catch (e) {
-    return e;
-  }
+  return data;
 };

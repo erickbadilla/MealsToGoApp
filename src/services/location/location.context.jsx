@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useContext,
 } from "react";
+import { unstable_batchedUpdates } from "react-native";
 import { useIsMounted } from "../../hooks/lifecycle-hooks";
 import { locationRequestAPI, locationAPITransform } from "./location.sevice";
 
@@ -30,9 +31,15 @@ export const LocationContextProvider = ({ children }) => {
           return;
         }
 
-        setLocation(locationAPITransform(result));
+        unstable_batchedUpdates(() => {
+          setError(null);
+          setLocation(locationAPITransform(result));
+        });
       } catch (e) {
-        setError(e);
+        unstable_batchedUpdates(() => {
+          setError(e);
+          setLocation(null);
+        });
       }
 
       setIsLoading(false);
