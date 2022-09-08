@@ -1,10 +1,11 @@
 import camelize from "camelize";
-import { HOST } from "../../utils/enviroment";
+import { HOST, isMock } from "../../utils/enviroment";
 
 export const locationRequestAPI = async (location) => {
   try {
-    console.log(HOST);
-    const response = await fetch(`${HOST}/geocode?city=${location}`);
+    const response = await fetch(
+      `${HOST}/geocode?city=${location}&mock=${isMock}`
+    );
 
     const { data } = await response.json();
 
@@ -14,17 +15,19 @@ export const locationRequestAPI = async (location) => {
   }
 };
 
-export const locationAPITransform = (apiResult) => {
-  const {
-    results: [firstResult],
-  } = camelize(apiResult);
+export const locationAPITransform = ([firstResult] = []) => {
+  try {
+    const camelizeFirstResult = camelize(firstResult);
 
-  const { geometry = {} } = firstResult;
-  const { lat, lng } = geometry.location;
+    const { geometry = {} } = camelizeFirstResult;
+    const { lat, lng } = geometry.location;
 
-  return {
-    lat,
-    lng,
-    viewport: geometry.viewport,
-  };
+    return {
+      lat,
+      lng,
+      viewport: geometry.viewport,
+    };
+  } catch (error) {
+    return [];
+  }
 };

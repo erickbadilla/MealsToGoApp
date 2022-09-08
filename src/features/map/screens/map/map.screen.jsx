@@ -1,13 +1,13 @@
-import React, { useContext, useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { Map } from "./map.styles";
 import { Search } from "../../components/search/search.component";
-import { LocationContext } from "../../../../services/location/location.context";
+import { useLocation } from "../../../../services/location/location.context";
 import { useRestaurantContext } from "../../../../services/restaurants/restaurant.context";
 import { Marker, Callout } from "react-native-maps";
 import { CompactRestaurantInfo } from "../../../../components/restaurant/compact-restaurant-info/compact-restaurant.component";
 
 export const MapScreen = ({ navigation }) => {
-  const { location } = useContext(LocationContext);
+  const { location } = useLocation();
   const { restaurants } = useRestaurantContext();
 
   const [latDelta, setLatDelta] = useState(0);

@@ -2,13 +2,17 @@ import { Antwerp } from "./antwerp";
 import { Chicago } from "./chicago";
 import { Toronto } from "./toronto";
 import { SanFrancisco } from "./san_francisco";
-
+import { PlaceData } from "@googlemaps/google-maps-services-js";
 export const mocks = {
   "51.219448,4.402464": Antwerp,
   "43.653225,-79.383186": Toronto,
   "41.878113,-87.629799": Chicago,
   "37.7749295,-122.4194155": SanFrancisco,
 };
+
+interface IPlaceReponse extends Omit<Partial<PlaceData>, "photos"> {
+  photos: string[];
+}
 
 export const mockImages = [
   "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
@@ -20,9 +24,15 @@ export const mockImages = [
   "https://www.foodiesfeed.com/wp-content/uploads/2019/02/pizza-ready-for-baking-600x400.jpg",
 ];
 
-export const addMockImages = (restaurant: any) => {
+export const addMockImages = (
+  restaurant: Partial<PlaceData>
+): IPlaceReponse => {
   const randomPhoto: string =
     mockImages[Math.floor(Math.random() * mockImages.length)];
-  restaurant.photos = [randomPhoto];
-  return restaurant;
+
+  const resturantMutation: IPlaceReponse =
+    restaurant as unknown as IPlaceReponse;
+
+  resturantMutation.photos = [randomPhoto];
+  return resturantMutation;
 };

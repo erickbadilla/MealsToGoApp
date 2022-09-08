@@ -10,6 +10,7 @@ import { FavouriteBar } from "../../../../components/favourites/favourites-bar/f
 import { useFavoritesContext } from "../../../../services/favorites/favourites.context";
 import { RestaurantListItem } from "../../components/restaurant-list-item/restaurant-list-item.component";
 import { FadeInView } from "../../../../components/animations/fade.animation";
+import { Restaurant } from "../../../../services/models/restaurant";
 
 export const RestaurantsScreen: FunctionComponent = () => {
   const { restaurants, isLoading } = useRestaurantContext();
@@ -17,7 +18,7 @@ export const RestaurantsScreen: FunctionComponent = () => {
   const { favourites: favorites } = useFavoritesContext();
 
   const keyExtractor = useCallback(({ name }) => name, []);
-  const renderItem = useCallback(
+  const renderItem: FunctionComponent<{ item: Restaurant }> = useCallback(
     ({ item }) => (
       <FadeInView duration={800}>
         <RestaurantListItem item={item} />

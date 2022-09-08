@@ -4,8 +4,10 @@ import React, {
   useEffect,
   useContext,
   FunctionComponent,
+  useCallback,
 } from "react";
-import { LocationContext } from "../location/location.context";
+import { useIsMounted } from "../../hooks/lifecycle-hooks";
+import { useLocation } from "../location/location.context";
 import { Restaurant } from "../models/restaurant";
 
 import {
@@ -27,7 +29,31 @@ export const RestaurantsContextProvider: FunctionComponent = ({ children }) => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<unknown>(null);
-  const { location } = useContext(LocationContext);
+  const { location } = useLocation();
+  const isComponentMountedRef = useIsMounted();
+
+  const retriveRestaurants = useCallback(
+    (restaurantLocation: string) => {
+      setIsLoading(true);
+
+      (async () => {
+        try {
+          const results = await RestaurantRequest(restaurantLocation);
+
+          if (!isComponentMountedRef.current) {
+            return;
+          }
+
+          setRestaurants(restaurantAPITransform(results));
+        } catch (e) {
+          setError(e);
+        }
+
+        setIsLoading(false);
+      })();
+    },
+    [isComponentMountedRef]
+  );
 
   useEffect(() => {
     if (!location) {
@@ -36,24 +62,7 @@ export const RestaurantsContextProvider: FunctionComponent = ({ children }) => {
 
     const locationString = `${location.lat},${location.lng}`;
     retriveRestaurants(locationString);
-  }, [location]);
-
-  const retriveRestaurants = (restaurantLocation: string) => {
-    setIsLoading(true);
-    setRestaurants([]);
-
-    (async () => {
-      try {
-        const result = await RestaurantRequest(restaurantLocation);
-
-        setRestaurants(restaurantAPITransform(result));
-      } catch (e) {
-        setError(e);
-      }
-
-      setIsLoading(false);
-    })();
-  };
+  }, [location, retriveRestaurants]);
 
   const restaurantContext: IRestaurantContext = {
     restaurants,

@@ -1,11 +1,6 @@
-import React, {
-  useContext,
-  useState,
-  useEffect,
-  FunctionComponent,
-} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Searchbar } from "react-native-paper";
-import { LocationContext } from "../../../../services/location/location.context";
+import { useLocation } from "../../../../services/location/location.context";
 import { SearchContainer } from "./search.styles";
 
 interface ISearchProps {
@@ -14,7 +9,7 @@ interface ISearchProps {
 }
 export const Search = React.memo<ISearchProps>(
   ({ onFavouritesToggle, isFavouritesToggled }) => {
-    const { keyword, search } = useContext(LocationContext);
+    const { keyword, search } = useLocation();
     const [searchKeyword, setSearchKeyword] = useState(keyword);
 
     useEffect(() => {

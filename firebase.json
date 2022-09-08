@@ -10,7 +10,7 @@
   },
   "emulators": {
     "functions": {
-      "host": "10.0.4.30",
+      "host": "10.0.4.82",
       "port": "5001"
     }
   }
