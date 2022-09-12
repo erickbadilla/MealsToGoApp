@@ -1,17 +1,26 @@
 import React, { useCallback, useState } from "react";
 
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { ScrollView } from "react-native";
 import { List } from "react-native-paper";
 import { SafeArea } from "../../../../components/utilities/safe-area";
 import { RestaurantInfoCard } from "../../components/restaurant-info-card/restaurant-info-card.component";
+import { TRestaurantRoute } from "../../../../infrastructure/navigation/restaurant.navigator";
+import { Spacer } from "../../../../components/spacer/spacer.component";
+import { OrderButton } from "../../components/order-button/order-button.component";
+import { Accordion } from "./restaurant-detail.styles";
+import { useCart } from "../../../../services/cart/cart.context";
+import { TAppNavigation } from "../../../../infrastructure/navigation/app.navigator";
 
-export const RestaurantDetailScreen = ({ route }) => {
+export const RestaurantDetailScreen = () => {
+  const { params } = useRoute<TRestaurantRoute>();
+  const navigation = useNavigation<TAppNavigation>();
+  const cartContext = useCart();
+
   const [breakfastExpanded, setBreakfastExpanded] = useState(false);
   const [launchExpanded, setLaunchExpanded] = useState(false);
   const [dinnerExpanded, setDinnerExpanded] = useState(false);
   const [drinksExpanded, setDrinksExpanded] = useState(false);
-
-  const { restaurant } = route.params;
 
   const handleBreakfastPress = () => setBreakfastExpanded((prev) => !prev);
   const handleLaunchExpanded = () => setLaunchExpanded((prev) => !prev);
@@ -38,11 +47,29 @@ export const RestaurantDetailScreen = ({ route }) => {
     []
   );
 
+  const onOrderButtonPress = () => {
+    if (!params?.restaurant) {
+      return;
+    }
+
+
+    cartContext.add(
+      {
+        item: "special",
+        price: 1299,
+      },
+      params.restaurant
+    );
+
+    navigation.navigate("CheckoutTab");
+  };
+
   return (
     <SafeArea>
-      <RestaurantInfoCard restaurant={restaurant} />
+      <RestaurantInfoCard restaurant={params?.restaurant} />
+
       <ScrollView>
-        <List.Accordion
+        <Accordion
           title="Breakfast"
           left={BreakfastIcon}
           expanded={breakfastExpanded}
@@ -50,23 +77,29 @@ export const RestaurantDetailScreen = ({ route }) => {
         >
           <List.Item title="Eggs Benedict" />
           <List.Item title="Classic Breakfast" />
-        </List.Accordion>
+        </Accordion>
 
-        <List.Accordion
+        <Accordion
           title="Lunch"
           left={LunchIcon}
           expanded={launchExpanded}
           onPress={handleLaunchExpanded}
-        />
+        >
+          <List.Item title="Eggs Benedict" />
+          <List.Item title="Classic Breakfast" />
+        </Accordion>
 
-        <List.Accordion
+        <Accordion
           title="Dinner"
           left={DinnerIcon}
           expanded={dinnerExpanded}
           onPress={handleDinnerExpanded}
-        />
+        >
+          <List.Item title="Eggs Benedict" />
+          <List.Item title="Classic Breakfast" />
+        </Accordion>
 
-        <List.Accordion
+        <Accordion
           title="Drinks"
           left={DrinksIcon}
           expanded={drinksExpanded}
@@ -74,8 +107,18 @@ export const RestaurantDetailScreen = ({ route }) => {
         >
           <List.Item title="Eggs Benedict" />
           <List.Item title="Classic Breakfast" />
-        </List.Accordion>
+        </Accordion>
       </ScrollView>
+
+      <Spacer position="bottom" size="large">
+        <OrderButton
+          mode="contained"
+          icon="currency-usd"
+          onPress={onOrderButtonPress}
+        >
+          Order Special 12.99!
+        </OrderButton>
+      </Spacer>
     </SafeArea>
   );
 };

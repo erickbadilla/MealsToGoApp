@@ -22,7 +22,7 @@ export interface PlusCode {
   globalCode: string;
 }
 
-export interface Restaurant {
+export interface IRestaurant {
   businessStatus: string;
   geometry: Geometry;
   ix: string;

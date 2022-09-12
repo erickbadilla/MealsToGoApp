@@ -9,7 +9,7 @@ import React, {
 import { unstable_batchedUpdates } from "react-native";
 import { useIsMounted } from "../../hooks/lifecycle-hooks";
 import { useLocation } from "../location/location.context";
-import { Restaurant } from "../models/restaurant";
+import { IRestaurant } from "../models/restaurant";
 
 import {
   restaurantAPITransform,
@@ -17,7 +17,7 @@ import {
 } from "./restaurant.service";
 
 interface IRestaurantContext {
-  restaurants: Restaurant[];
+  restaurants: IRestaurant[];
   isLoading: boolean;
   error?: unknown;
 }
@@ -27,7 +27,7 @@ const RestaurantContext = createContext<IRestaurantContext | undefined>(
 );
 
 export const RestaurantsContextProvider: FunctionComponent = ({ children }) => {
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [restaurants, setRestaurants] = useState<IRestaurant[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<unknown>(null);
   const { location } = useLocation();

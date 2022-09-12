@@ -2,13 +2,13 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useCallback } from "react";
 import { TouchableOpacity } from "react-native";
 import { Spacer } from "../../../../components/spacer/spacer.component";
-import { RestaurantNavigation } from "../../../../infrastructure/navigation/restaurant.navigator";
-import { Restaurant } from "../../../../services/models/restaurant";
+import { TRestaurantNavigation } from "../../../../infrastructure/navigation/restaurant.navigator";
+import { IRestaurant } from "../../../../services/models/restaurant";
 import { RestaurantInfoCard } from "../restaurant-info-card/restaurant-info-card.component";
 
-export const RestaurantListItem = React.memo<{ item: Restaurant }>(
+export const RestaurantListItem = React.memo<{ item: IRestaurant }>(
   ({ item }) => {
-    const navigation = useNavigation<RestaurantNavigation>();
+    const navigation = useNavigation<TRestaurantNavigation>();
 
     const handlePress = useCallback(
       () =>

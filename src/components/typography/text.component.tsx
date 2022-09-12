@@ -1,7 +1,7 @@
-import React from "react";
-import styled, { useTheme } from "styled-components/native";
+import React, { FunctionComponent } from "react";
+import styled, { useTheme, DefaultTheme } from "styled-components/native";
 
-const defaultTextStyles = (theme) => `
+const defaultTextStyles = (theme: DefaultTheme) => `
     font-family: ${theme.fonts.body};
     font-weight: ${theme.fontWeights.regular};
     color: ${theme.colors.text.primary};
@@ -9,48 +9,58 @@ const defaultTextStyles = (theme) => `
     margin-top: 0px
     margin-bottom: 0px
 `;
-const getVariantStyles = (variant, theme) => {
-  return variants[variant](theme);
-};
 
-const body = (theme) => `
+const body = (theme: DefaultTheme) => `
     font-size: ${theme.fontSizes.body};
 `;
 
-const hint = (theme) => `
-    font-size: ${theme.fontSizes.hint};
-`;
-
-const error = (theme) => `
+const error = (theme: DefaultTheme) => `
    color: ${theme.colors.text.error};
 `;
 
-const caption = (theme) => `
+const caption = (theme: DefaultTheme) => `
     font-size: ${theme.fontSizes.caption};
     font-weight: ${theme.fontWeights.bold};
 `;
 
-const label = (theme) => `
+const label = (theme: DefaultTheme) => `
     font-family: ${theme.fonts.heading};
     font-size: ${theme.fontSizes.body};
     font-weight: ${theme.fontWeights.medium};
 
 `;
 
-const variants = {
+const TEXT_VARIANTS = Object.freeze({
   body,
   label,
   caption,
   error,
-  hint,
+});
+
+type TTextVariant = keyof typeof TEXT_VARIANTS;
+
+const getVariantStyles = (variant: TTextVariant, theme: DefaultTheme) => {
+  return TEXT_VARIANTS[variant](theme);
 };
 
-const StyledText = styled.Text`
+interface IStyledTextProps {
+  defaultStyles: string;
+  variantStyles: string;
+}
+
+const StyledText = styled.Text<IStyledTextProps>`
   ${({ defaultStyles }) => defaultStyles}
   ${({ variantStyles }) => variantStyles}
 `;
 
-export const Text = ({ variant, children }) => {
+interface ITextProps {
+  variant?: TTextVariant;
+}
+
+export const Text: FunctionComponent<ITextProps> = ({
+  variant = "body",
+  children,
+}) => {
   const theme = useTheme();
   const defaultStyles = defaultTextStyles(theme);
   const variantStyles = getVariantStyles(variant, theme);
@@ -60,8 +70,4 @@ export const Text = ({ variant, children }) => {
       {children}
     </StyledText>
   );
-};
-
-Text.defaultProps = {
-  variant: "body",
 };

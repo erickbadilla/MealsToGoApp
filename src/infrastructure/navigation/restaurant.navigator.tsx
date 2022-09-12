@@ -8,24 +8,27 @@ import {
 
 import { RestaurantsScreen } from "../../features/restaurants/screens/restaurant/restaurant.screen";
 import { RestaurantDetailScreen } from "../../features/restaurants/screens/restaurant-detail/restaurant-detail.screen";
-import { Restaurant } from "../../services/models/restaurant";
+import { IRestaurant } from "../../services/models/restaurant";
+import { RouteProp } from "@react-navigation/native";
 
-type RestaurantStackParamList = {
+type TRestaurantStackParamList = {
   RestaurantsStack: undefined;
   RestaurantDetailStack: {
-    restaurant: Restaurant;
+    restaurant: IRestaurant;
   };
 };
 
-export type RestaurantNavigation =
-  StackNavigationProp<RestaurantStackParamList>;
+export type TRestaurantNavigation =
+  StackNavigationProp<TRestaurantStackParamList>;
 
-const RestaurantStack = createStackNavigator<RestaurantStackParamList>();
+export type TRestaurantRoute = RouteProp<TRestaurantStackParamList>;
+
+const RestaurantStack = createStackNavigator<TRestaurantStackParamList>();
 
 export const RestaurantNavigator: FunctionComponent = () => (
   <RestaurantStack.Navigator
     screenOptions={{
-      ...TransitionPresets.ModalPresentationIOS,
+      ...TransitionPresets.ModalSlideFromBottomIOS,
       headerShown: false,
     }}
   >

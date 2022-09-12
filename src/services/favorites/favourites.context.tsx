@@ -6,14 +6,14 @@ import React, {
   useEffect,
   FunctionComponent,
 } from "react";
-import { Restaurant } from "../models/restaurant";
+import { IRestaurant } from "../models/restaurant";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuthentication } from "../auth/authentication.context";
 
 interface IFavoritesContext {
-  favourites: Restaurant[];
-  addFavorite: (restaurant: Restaurant) => void;
-  removeFavorite: (restaurant: Restaurant) => void;
+  favourites: IRestaurant[];
+  addFavorite: (restaurant: IRestaurant) => void;
+  removeFavorite: (restaurant: IRestaurant) => void;
 }
 
 const FavoritesContext = createContext<IFavoritesContext | undefined>(
@@ -23,11 +23,11 @@ const FavoritesContext = createContext<IFavoritesContext | undefined>(
 export const FavoritesProvider: FunctionComponent<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [favourites, setFavourites] = useState<Restaurant[]>([]);
+  const [favourites, setFavourites] = useState<IRestaurant[]>([]);
   const { user } = useAuthentication();
 
   const saveFavourites = useCallback(
-    async (restaurant: Restaurant[], userUID: string) => {
+    async (restaurant: IRestaurant[], userUID: string) => {
       try {
         const serializedJSON = JSON.stringify(restaurant);
         await AsyncStorage.setItem(`@favourites-${userUID}`, serializedJSON);
@@ -46,17 +46,17 @@ export const FavoritesProvider: FunctionComponent<{
         return;
       }
 
-      const storedFavourites: Restaurant[] = JSON.parse(serializedJSON);
+      const storedFavourites: IRestaurant[] = JSON.parse(serializedJSON);
 
       setFavourites(storedFavourites);
     } catch (e) {}
   }, []);
 
-  const addFavorite = useCallback((restaurant: Restaurant) => {
+  const addFavorite = useCallback((restaurant: IRestaurant) => {
     setFavourites((prev) => [...prev, restaurant]);
   }, []);
 
-  const removeFavorite = useCallback((restaurant: Restaurant) => {
+  const removeFavorite = useCallback((restaurant: IRestaurant) => {
     setFavourites((prevFavorites) =>
       prevFavorites.filter(({ placeId }) => placeId !== restaurant.placeId)
     );

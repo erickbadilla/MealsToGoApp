@@ -9,10 +9,12 @@ import { FavouriteBar } from "../../../../components/favourites/favourites-bar/f
 import { useFavoritesContext } from "../../../../services/favorites/favourites.context";
 import { RestaurantListItem } from "../../components/restaurant-list-item/restaurant-list-item.component";
 import { FadeInView } from "../../../../components/animations/fade.animation";
-import { Restaurant } from "../../../../services/models/restaurant";
+import { IRestaurant } from "../../../../services/models/restaurant";
 import { useLocation } from "../../../../services/location/location.context";
 import { Text } from "../../../../components/typography/text.component";
 import { Spacer } from "../../../../components/spacer/spacer.component";
+
+const RESTAURANT_ITEM_HEIGHT = 300.4;
 
 export const RestaurantsScreen: FunctionComponent = () => {
   const {
@@ -27,7 +29,7 @@ export const RestaurantsScreen: FunctionComponent = () => {
   const [isToggled, setIsToggled] = useState<boolean>(false);
 
   const keyExtractor = useCallback(({ name }) => name, []);
-  const renderItem: FunctionComponent<{ item: Restaurant }> = useCallback(
+  const renderItem = useCallback<FunctionComponent<{ item: IRestaurant }>>(
     ({ item }) => (
       <FadeInView duration={800}>
         <RestaurantListItem item={item} />
@@ -35,7 +37,14 @@ export const RestaurantsScreen: FunctionComponent = () => {
     ),
     []
   );
-
+  const getItemLayout = useCallback(
+    (_data: IRestaurant[] | null | undefined, index: number) => ({
+      length: RESTAURANT_ITEM_HEIGHT,
+      offset: RESTAURANT_ITEM_HEIGHT * index,
+      index,
+    }),
+    []
+  );
   return (
     <SafeArea>
       <Spinner isLoading={isLoading} size={50} color={Colors.blueA100} />
@@ -57,6 +66,7 @@ export const RestaurantsScreen: FunctionComponent = () => {
           data={restaurants}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
+          getItemLayout={getItemLayout}
         />
       )}
     </SafeArea>

@@ -6,12 +6,12 @@ import {
 } from "./compact-restaurant.styles";
 import { Text } from "../../typography/text.component";
 import { Platform } from "react-native";
-import { Restaurant } from "../../../services/models/restaurant";
+import { IRestaurant } from "../../../services/models/restaurant";
 
 const isAndroid = Platform.OS === "android";
 
 interface CompactRestaurantInfoProps {
-  restaurant: Restaurant;
+  restaurant: IRestaurant;
   isMap?: boolean;
 }
 

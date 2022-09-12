@@ -2,9 +2,9 @@ import React, { FunctionComponent } from "react";
 import { useFavoritesContext } from "../../../services/favorites/favourites.context";
 import { FavouriteButton } from "./favourites.styles";
 import { AntDesign } from "@expo/vector-icons";
-import { Restaurant } from "../../../services/models/restaurant";
+import { IRestaurant } from "../../../services/models/restaurant";
 interface FavouritesProps {
-  restaurant: Restaurant;
+  restaurant: IRestaurant;
 }
 
 export const Favourite: FunctionComponent<FavouritesProps> = ({
