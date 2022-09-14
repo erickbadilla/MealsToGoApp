@@ -1,6 +1,10 @@
 import React, { FunctionComponent } from "react";
 
-import { CardFieldInput, useStripe } from "@stripe/stripe-react-native";
+import {
+  CardFieldInput,
+  CreateTokenResult,
+  useStripe,
+} from "@stripe/stripe-react-native";
 import { isDevelopment } from "../../../../utils/enviroment";
 import { CardInput } from "./credit-card.styles";
 
@@ -42,10 +46,14 @@ const isCreditCardValid = ({
 
 interface ICreditCardInput {
   name: string;
+  hidden: boolean;
+  onSuccess: (card: CreateTokenResult) => void;
 }
 
 export const CreditCardInput: FunctionComponent<ICreditCardInput> = ({
   name,
+  hidden,
+  onSuccess,
 }) => {
   const { createToken } = useStripe();
 
@@ -62,7 +70,7 @@ export const CreditCardInput: FunctionComponent<ICreditCardInput> = ({
       name,
     });
 
-    console.log(result);
+    onSuccess(result);
   };
 
   return (
@@ -70,10 +78,9 @@ export const CreditCardInput: FunctionComponent<ICreditCardInput> = ({
       postalCodeEnabled={false}
       placeholder={cardPlaceholder}
       onCardChange={onCardChange}
+      style={{
+        display: hidden ? "none" : "flex",
+      }}
     />
   );
-};
-
-CreditCardInput.defaultProps = {
-  name: "Erick",
 };

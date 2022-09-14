@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-import { StripeProvider } from "@stripe/stripe-react-native";
+import { CreateTokenResult, StripeProvider } from "@stripe/stripe-react-native";
 import { SafeArea } from "../../../../components/utilities/safe-area";
 import { CreditCardInput } from "../../components/credit-card/credit-card.component";
 import { useCart } from "../../../../services/cart/cart.context";
@@ -17,11 +17,22 @@ import { RestaurantInfoCard } from "../../../restaurants/components/restaurant-i
 import { ScrollView } from "react-native-gesture-handler";
 import { List } from "react-native-paper";
 import { capitalize } from "../../../../utils/capitilizeText";
+import { payRequest } from "../../../../services/checkout/checkout.service";
 
 export const CheckoutScreen = () => {
   const { cart, restaurant, clear: clearCart } = useCart();
   const [cartSum, setCartSum] = useState<number>(0);
   const [personName, setPersonName] = useState<string>("");
+  const [card, setCard] = useState<CreateTokenResult | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const onPay = useCallback(() => {
+    if (!card?.token) {
+      return;
+    }
+
+    payRequest(card.token.id, cartSum, personName);
+  }, [cartSum, personName, card]);
 
   useEffect(() => {
     if (!cart.length) {
@@ -73,14 +84,19 @@ export const CheckoutScreen = () => {
             label="Name"
             value={personName}
             onChangeText={setPersonName}
+            autoFocus
           />
 
           <Spacer position="top" size="large">
-            {personName?.length > 0 && <CreditCardInput name={personName} />}
+            <CreditCardInput
+              name={personName}
+              onSuccess={setCard}
+              hidden={!personName?.length}
+            />
           </Spacer>
 
           <Spacer position="top" size="xxl">
-            <PayButton icon="cash" mode="contained">
+            <PayButton icon="cash" mode="contained" onPress={onPay}>
               Pay
             </PayButton>
           </Spacer>

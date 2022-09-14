@@ -1,7 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment, FunctionComponent } from "react";
 import { LoadingContainer, LoadingIndicator } from "./spinner.styles";
 
-export const Spinner = ({ isLoading, color, size }) => (
+interface ISpinnerProps {
+  isLoading: boolean;
+  color: string;
+  size: number;
+}
+
+export const Spinner: FunctionComponent<ISpinnerProps> = ({
+  isLoading,
+  color,
+  size,
+}) => (
   <Fragment>
     {isLoading && (
       <LoadingContainer>

@@ -4,7 +4,7 @@ import { SafeArea } from "../../../../components/utilities/safe-area";
 import { Search } from "../../components/search/search.component";
 import { useRestaurantContext } from "../../../../services/restaurants/restaurant.context";
 import { Colors } from "react-native-paper";
-import { Spinner } from "../../../../components/spinner/spinner.component.jsx";
+import { Spinner } from "../../../../components/spinner/spinner.component";
 import { FavouriteBar } from "../../../../components/favourites/favourites-bar/favourites-bar.component";
 import { useFavoritesContext } from "../../../../services/favorites/favourites.context";
 import { RestaurantListItem } from "../../components/restaurant-list-item/restaurant-list-item.component";
