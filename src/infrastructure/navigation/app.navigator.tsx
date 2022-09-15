@@ -12,8 +12,8 @@ import { LocationContextProvider } from "../../services/location/location.contex
 import { RestaurantsContextProvider } from "../../services/restaurants/restaurant.context";
 import { CartContextProvider } from "../../services/cart/cart.context";
 import { SettingsNavigator } from "./settings.navigator";
-import { CheckoutScreen } from "../../features/checkout/screens/checkout/checkout.screen";
 import { NavigationProp, RouteProp } from "@react-navigation/native";
+import { CheckoutNavigator } from "./checkout.navigator";
 
 const TAB_ICON_NAMES = Object.freeze({
   RestaurantsTab: "md-restaurant",
@@ -64,7 +64,7 @@ export const AppNavigator = () => {
               />
               <Tab.Screen
                 name="CheckoutTab"
-                component={CheckoutScreen}
+                component={CheckoutNavigator}
                 options={{ title: "Checkout" }}
               />
               <Tab.Screen

@@ -7,7 +7,8 @@
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "dev": "concurrently --kill-others-on-fail \"npm run build:watch\" \"npm run serve\""
   },
   "engines": {
     "node": "16"
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
+    "concurrently": "^7.4.0",
     "typescript": "^4.8.2"
   },
   "private": true

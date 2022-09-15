@@ -21,6 +21,7 @@
     "@stripe/stripe-react-native": "0.6.1",
     "@types/react-dom": "^18.0.6",
     "camelize": "^1.0.0",
+    "concurrently": "^7.4.0",
     "expo": "~45.0.0",
     "expo-camera": "~12.2.0",
     "expo-font": "~10.1.0",

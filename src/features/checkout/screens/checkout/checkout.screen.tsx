@@ -6,11 +6,10 @@ import { CreditCardInput } from "../../components/credit-card/credit-card.compon
 import { useCart } from "../../../../services/cart/cart.context";
 import { Text } from "../../../../components/typography/text.component";
 import {
-  CartIcon,
-  CartIconContainer,
   ClearButton,
   NameInput,
   PayButton,
+  PaymentProcessing,
 } from "./checkout.styles";
 import { Spacer } from "../../../../components/spacer/spacer.component";
 import { RestaurantInfoCard } from "../../../restaurants/components/restaurant-info-card/restaurant-info-card.component";
@@ -18,21 +17,53 @@ import { ScrollView } from "react-native-gesture-handler";
 import { List } from "react-native-paper";
 import { capitalize } from "../../../../utils/capitilizeText";
 import { payRequest } from "../../../../services/checkout/checkout.service";
+import { CustomCardIcon } from "../../components/card-icon/card-icon.component";
+import { useNavigation } from "@react-navigation/native";
+import { TCheckoutNavigation } from "../../../../infrastructure/navigation/checkout.navigator";
 
 export const CheckoutScreen = () => {
-  const { cart, restaurant, clear: clearCart } = useCart();
   const [cartSum, setCartSum] = useState<number>(0);
   const [personName, setPersonName] = useState<string>("");
   const [card, setCard] = useState<CreateTokenResult | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const onPay = useCallback(() => {
+  const { cart, restaurant, clear: clearCart } = useCart();
+
+  const navigation = useNavigation<TCheckoutNavigation>();
+
+  const onError = useCallback(
+    () =>
+      navigation.navigate("CheckoutError", {
+        error: "Something went wrong processing your credit card.",
+      }),
+    [navigation]
+  );
+
+  const onPay = useCallback(async () => {
     if (!card?.token) {
-      return;
+      return navigation.navigate("CheckoutError", {
+        error: "Please fill a valid credit card.",
+      });
     }
 
-    payRequest(card.token.id, cartSum, personName);
-  }, [cartSum, personName, card]);
+    setLoading(true);
+
+    try {
+      await payRequest(card.token.id, cartSum, personName);
+
+      clearCart();
+
+      navigation.navigate("CheckoutSuccess");
+    } catch (error) {
+      return navigation.navigate("CheckoutError", {
+        error:
+          (error as Error)?.message ??
+          "Something went wrong. Please try again later.",
+      });
+    }
+
+    setLoading(false);
+  }, [cartSum, personName, card, clearCart, navigation]);
 
   useEffect(() => {
     if (!cart.length) {
@@ -47,13 +78,11 @@ export const CheckoutScreen = () => {
   if (!cart.length || !restaurant) {
     return (
       <SafeArea>
-        <CartIconContainer>
-          <Spacer position="bottom" size="small">
-            <CartIcon icon="cart-off" backgroundColor="red" />
-          </Spacer>
-
-          <Text>Your cart is empty!</Text>
-        </CartIconContainer>
+        <CustomCardIcon
+          iconName="cart-off"
+          iconBackgroudColor="red"
+          message="Your cart is empty!"
+        />
       </SafeArea>
     );
   }
@@ -62,6 +91,9 @@ export const CheckoutScreen = () => {
     <StripeProvider publishableKey="pk_test_51LgIhfIusQC7ECpn6orZxPNEHGEkB5sge5WF9voiYFY7kLvDSTRfXZBAdgCtvC9sNBpEzA04bBzP0iGxSXIdXVfa00M0ku3B4Z">
       <SafeArea>
         <RestaurantInfoCard restaurant={restaurant} />
+
+        {loading && <PaymentProcessing />}
+
         <ScrollView>
           <Spacer position="left" size="medium">
             <Spacer position="top" size="large">
@@ -84,25 +116,35 @@ export const CheckoutScreen = () => {
             label="Name"
             value={personName}
             onChangeText={setPersonName}
-            autoFocus
           />
 
           <Spacer position="top" size="large">
             <CreditCardInput
               name={personName}
               onSuccess={setCard}
+              onError={onError}
               hidden={!personName?.length}
             />
           </Spacer>
 
           <Spacer position="top" size="xxl">
-            <PayButton icon="cash" mode="contained" onPress={onPay}>
+            <PayButton
+              disabled={loading}
+              icon="cash"
+              mode="contained"
+              onPress={onPay}
+            >
               Pay
             </PayButton>
           </Spacer>
 
           <Spacer position="top" size="large">
-            <ClearButton icon="cart-off" mode="contained" onPress={clearCart}>
+            <ClearButton
+              disabled={loading}
+              icon="cart-off"
+              mode="contained"
+              onPress={clearCart}
+            >
               Clear Cart
             </ClearButton>
           </Spacer>

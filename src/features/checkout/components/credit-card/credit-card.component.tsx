@@ -48,12 +48,14 @@ interface ICreditCardInput {
   name: string;
   hidden: boolean;
   onSuccess: (card: CreateTokenResult) => void;
+  onError: () => void;
 }
 
 export const CreditCardInput: FunctionComponent<ICreditCardInput> = ({
   name,
   hidden,
   onSuccess,
+  onError,
 }) => {
   const { createToken } = useStripe();
 
@@ -64,13 +66,17 @@ export const CreditCardInput: FunctionComponent<ICreditCardInput> = ({
       return;
     }
 
-    const result = await createToken({
-      type: "Card",
-      currency: "usd",
-      name,
-    });
+    try {
+      const result = await createToken({
+        type: "Card",
+        currency: "usd",
+        name,
+      });
 
-    onSuccess(result);
+      onSuccess(result);
+    } catch (error) {
+      onError();
+    }
   };
 
   return (
@@ -78,9 +84,7 @@ export const CreditCardInput: FunctionComponent<ICreditCardInput> = ({
       postalCodeEnabled={false}
       placeholder={cardPlaceholder}
       onCardChange={onCardChange}
-      style={{
-        display: hidden ? "none" : "flex",
-      }}
+      hidden={hidden}
     />
   );
 };
