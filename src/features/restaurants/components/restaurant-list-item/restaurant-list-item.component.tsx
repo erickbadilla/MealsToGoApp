@@ -25,5 +25,6 @@ export const RestaurantListItem = React.memo<{ item: IRestaurant }>(
         </Spacer>
       </TouchableOpacity>
     );
-  }
+  },
+  () => true
 );
