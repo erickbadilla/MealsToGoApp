@@ -1,4 +1,5 @@
 import { PaymentIntent } from "@stripe/stripe-react-native";
+
 import { HOST } from "../../utils/enviroment";
 
 export const payRequest = async (

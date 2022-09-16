@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { FunctionComponent, useMemo } from "react";
 import { SvgXml } from "react-native-svg";
 
 import open from "../../../../../assets/open.js";
@@ -6,6 +6,7 @@ import star from "../../../../../assets/star.js";
 import { Favourite } from "../../../../components/favourites/favourites-icon/favourites.component";
 import { Spacer } from "../../../../components/spacer/spacer.component";
 import { Text } from "../../../../components/typography/text.component";
+import { IRestaurant } from "../../../../services/models/restaurant.js";
 
 import {
   Address,
@@ -18,7 +19,13 @@ import {
   SectionEnd,
 } from "./restaurant-info-card.styles";
 
-export const RestaurantInfoCard = ({ restaurant = {} }) => {
+interface IRestaurantInfoCardProps {
+  restaurant: IRestaurant;
+}
+
+export const RestaurantInfoCard: FunctionComponent<
+  IRestaurantInfoCardProps
+> = ({ restaurant }) => {
   const {
     name = "Some Restaurant",
     icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",

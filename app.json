@@ -15,9 +15,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -26,7 +24,17 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.crytek.MealsToGo"
+      "package": "com.erickbadilla.MealsToGo",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAk63isBSig5Zy3Ta_TcOSQFQIXWQVEmT8"
+        }
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "cf1790ee-d9f8-4399-84ad-cf9966fa8474"
+      }
     }
   }
 }

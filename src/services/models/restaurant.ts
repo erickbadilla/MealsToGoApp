@@ -39,4 +39,8 @@ export interface IRestaurant {
   userRatingsTotal: number;
   vicinity: string;
   isClosedTemporarily: boolean;
+
+  //Not in Google API
+  isOpenNow?: boolean;
+  icon?: string;
 }

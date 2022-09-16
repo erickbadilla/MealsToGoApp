@@ -1,4 +1,6 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
+
+import { IRestaurant } from "../../../../services/models/restaurant";
 
 import {
   CallOutContainer,
@@ -6,7 +8,13 @@ import {
   CalloutText,
 } from "./map-callout.styles";
 
-export const MapCallout = ({ restaurant }) => {
+interface IMapCalloutProps {
+  restaurant: IRestaurant;
+}
+
+export const MapCallout: FunctionComponent<IMapCalloutProps> = ({
+  restaurant,
+}) => {
   return (
     <CallOutContainer>
       <CalloutImage source={{ uri: restaurant.photos[0] }} />

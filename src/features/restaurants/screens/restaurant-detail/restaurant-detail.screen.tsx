@@ -8,6 +8,7 @@ import { SafeArea } from "../../../../components/utilities/safe-area";
 import { TAppNavigation } from "../../../../infrastructure/navigation/app.navigator";
 import { TRestaurantRoute } from "../../../../infrastructure/navigation/restaurant.navigator";
 import { useCart } from "../../../../services/cart/cart.context";
+import { IRestaurant } from "../../../../services/models/restaurant";
 import { OrderButton } from "../../components/order-button/order-button.component";
 import { RestaurantInfoCard } from "../../components/restaurant-info-card/restaurant-info-card.component";
 
@@ -66,7 +67,7 @@ export const RestaurantDetailScreen = () => {
 
   return (
     <SafeArea>
-      <RestaurantInfoCard restaurant={params?.restaurant} />
+      <RestaurantInfoCard restaurant={params?.restaurant as IRestaurant} />
 
       <ScrollView>
         <Accordion
