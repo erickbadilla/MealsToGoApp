@@ -1,12 +1,13 @@
 import React, {
-  useState,
   createContext,
-  useEffect,
-  useContext,
   FunctionComponent,
   useCallback,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
 import { unstable_batchedUpdates } from "react-native";
+
 import { useIsMounted } from "../../hooks/lifecycle-hooks";
 import { useLocation } from "../location/location.context";
 import { IRestaurant } from "../models/restaurant";

@@ -1,14 +1,14 @@
 import React, { FunctionComponent } from "react";
 import {
+  CardStyleInterpolators,
   createStackNavigator,
   StackNavigationProp,
-  CardStyleInterpolators,
 } from "@react-navigation/stack";
 
-import { theme } from "../theme";
-import { SettingsScreen } from "../../features/settings/screens/settings/settings.screen";
-import { FavouriteScreen } from "../../features/settings/screens/favourites/favourites.screen";
 import { CameraScreen } from "../../features/settings/screens/camera/camera.screen";
+import { FavouriteScreen } from "../../features/settings/screens/favourites/favourites.screen";
+import { SettingsScreen } from "../../features/settings/screens/settings/settings.screen";
+import { theme } from "../theme";
 
 type SettingsStackParamList = {
   Settings: undefined;

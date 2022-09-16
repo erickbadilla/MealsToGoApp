@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-
+import { RouteProp } from "@react-navigation/native";
 import {
   createStackNavigator,
   StackNavigationProp,
@@ -9,7 +9,6 @@ import {
 import { RestaurantsScreen } from "../../features/restaurants/screens/restaurant/restaurant.screen";
 import { RestaurantDetailScreen } from "../../features/restaurants/screens/restaurant-detail/restaurant-detail.screen";
 import { IRestaurant } from "../../services/models/restaurant";
-import { RouteProp } from "@react-navigation/native";
 
 type TRestaurantStackParamList = {
   RestaurantsStack: undefined;

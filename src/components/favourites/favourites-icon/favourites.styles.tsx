@@ -1,5 +1,5 @@
-import styled from "styled-components/native";
 import { Pressable } from "react-native";
+import styled from "styled-components/native";
 
 export const FavouriteButton = styled(Pressable)`
   position: absolute;

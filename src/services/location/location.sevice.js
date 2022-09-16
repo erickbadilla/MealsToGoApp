@@ -1,4 +1,5 @@
 import camelize from "camelize";
+
 import { HOST, isMock } from "../../utils/enviroment";
 
 export const locationRequestAPI = async (location) => {

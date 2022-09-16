@@ -1,11 +1,13 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { Map } from "./map.styles";
-import { Search } from "../../components/search/search.component";
+import React, { Fragment, useEffect, useState } from "react";
+import { Callout, Marker } from "react-native-maps";
+import { useNavigation } from "@react-navigation/native";
+
+import { CompactRestaurantInfo } from "../../../../components/restaurant/compact-restaurant-info/compact-restaurant.component";
 import { useLocation } from "../../../../services/location/location.context";
 import { useRestaurantContext } from "../../../../services/restaurants/restaurant.context";
-import { Marker, Callout } from "react-native-maps";
-import { CompactRestaurantInfo } from "../../../../components/restaurant/compact-restaurant-info/compact-restaurant.component";
-import { useNavigation } from "@react-navigation/native";
+import { Search } from "../../components/search/search.component";
+
+import { Map } from "./map.styles";
 
 const RestaurantMap = () => {
   const { location } = useLocation();

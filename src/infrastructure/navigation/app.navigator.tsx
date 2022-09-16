@@ -1,19 +1,20 @@
 import React from "react";
-
 import { Ionicons } from "@expo/vector-icons";
 import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
-import { RestaurantNavigator } from "./restaurant.navigator";
+import { NavigationProp, RouteProp } from "@react-navigation/native";
+
 import { MapScreen } from "../../features/map/screens/map/map.screen";
+import { CartContextProvider } from "../../services/cart/cart.context";
 import { FavoritesProvider } from "../../services/favorites/favourites.context";
 import { LocationContextProvider } from "../../services/location/location.context";
 import { RestaurantsContextProvider } from "../../services/restaurants/restaurant.context";
-import { CartContextProvider } from "../../services/cart/cart.context";
-import { SettingsNavigator } from "./settings.navigator";
-import { NavigationProp, RouteProp } from "@react-navigation/native";
+
 import { CheckoutNavigator } from "./checkout.navigator";
+import { RestaurantNavigator } from "./restaurant.navigator";
+import { SettingsNavigator } from "./settings.navigator";
 
 const TAB_ICON_NAMES = Object.freeze({
   RestaurantsTab: "md-restaurant",

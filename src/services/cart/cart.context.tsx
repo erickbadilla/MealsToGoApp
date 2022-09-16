@@ -6,12 +6,14 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { IRestaurant } from "../models/restaurant";
-import { ICartItem } from "./model/cart-context.model";
-import uuid from "uuid-random";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { unstable_batchedUpdates } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import uuid from "uuid-random";
+
 import { useAuthentication } from "../auth/authentication.context";
+import { IRestaurant } from "../models/restaurant";
+
+import { ICartItem } from "./model/cart-context.model";
 
 interface ICartContext {
   add: (item: ICartItem, restaurant: IRestaurant) => void;

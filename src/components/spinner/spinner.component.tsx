@@ -1,4 +1,5 @@
 import React, { Fragment, FunctionComponent } from "react";
+
 import { LoadingContainer, LoadingIndicator } from "./spinner.styles";
 
 interface ISpinnerProps {

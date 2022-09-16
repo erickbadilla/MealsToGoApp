@@ -1,23 +1,22 @@
 import React, { useMemo } from "react";
 import { SvgXml } from "react-native-svg";
+
+import open from "../../../../../assets/open.js";
+import star from "../../../../../assets/star.js";
+import { Favourite } from "../../../../components/favourites/favourites-icon/favourites.component";
+import { Spacer } from "../../../../components/spacer/spacer.component";
 import { Text } from "../../../../components/typography/text.component";
 
 import {
-  Info,
   Address,
+  Icon,
+  Info,
+  Rating,
   RestaurantCard,
   RestaurantCardCover,
   Section,
-  Rating,
   SectionEnd,
-  Icon,
 } from "./restaurant-info-card.styles";
-
-import { Spacer } from "../../../../components/spacer/spacer.component";
-
-import star from "../../../../../assets/star.js";
-import open from "../../../../../assets/open.js";
-import { Favourite } from "../../../../components/favourites/favourites-icon/favourites.component";
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {

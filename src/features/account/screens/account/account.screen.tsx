@@ -1,14 +1,15 @@
 import React, { FunctionComponent, useCallback } from "react";
-import { Spacer } from "../../../../components/spacer/spacer.component";
 import { useNavigation } from "@react-navigation/native";
+import LottieView from "lottie-react-native";
+
+import { Spacer } from "../../../../components/spacer/spacer.component";
 import { AccountNavigation } from "../../../../infrastructure/navigation/account.navigator";
 import { AccountBackground } from "../../components/account-background/account-background.styles";
-import { AccountCover } from "../../components/account-cover/account-cover.styles";
 import { AccountContainer } from "../../components/account-container/account-container.styles";
+import { AccountCover } from "../../components/account-cover/account-cover.styles";
+import { AnimationWrapper } from "../../components/animation-wrapper/animation-wrapper.styles";
 import { AuthButton } from "../../components/auth-button/auth-button.styles";
 import { Title } from "../../components/title/title.styles";
-import LottieView from "lottie-react-native";
-import { AnimationWrapper } from "../../components/animation-wrapper/animation-wrapper.styles";
 
 export const AccountScreen: FunctionComponent = () => {
   const navigation = useNavigation<AccountNavigation>();

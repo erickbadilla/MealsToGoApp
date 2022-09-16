@@ -1,11 +1,13 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { TouchableOpacity } from "react-native";
-import { Camera, CameraType } from "expo-camera";
-import { CenterText, InnerSnap, ProfileCamera } from "./camera.styles";
-import { Text } from "../../../../components/typography/text.component";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useAuthentication } from "../../../../services/auth/authentication.context";
 import { useNavigation } from "@react-navigation/native";
+import { Camera, CameraType } from "expo-camera";
+
+import { Text } from "../../../../components/typography/text.component";
+import { useAuthentication } from "../../../../services/auth/authentication.context";
+
+import { CenterText, InnerSnap, ProfileCamera } from "./camera.styles";
 
 export const CameraScreen = () => {
   const [permission, requestPermission] = ProfileCamera.useCameraPermissions();

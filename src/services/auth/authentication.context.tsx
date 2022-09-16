@@ -1,16 +1,17 @@
-import {
-  User,
-  AuthError,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth/react-native";
 import React, {
-  useState,
   createContext,
   FunctionComponent,
   useCallback,
+  useState,
 } from "react";
 import { unstable_batchedUpdates } from "react-dom";
+import {
+  AuthError,
+  onAuthStateChanged,
+  signOut,
+  User,
+} from "firebase/auth/react-native";
+
 import {
   getAuthentication,
   loginRequest,

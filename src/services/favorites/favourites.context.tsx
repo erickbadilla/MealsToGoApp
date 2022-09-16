@@ -1,14 +1,15 @@
 import React, {
   createContext,
-  useState,
-  useContext,
-  useCallback,
-  useEffect,
   FunctionComponent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
-import { IRestaurant } from "../models/restaurant";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { useAuthentication } from "../auth/authentication.context";
+import { IRestaurant } from "../models/restaurant";
 
 interface IFavoritesContext {
   favourites: IRestaurant[];

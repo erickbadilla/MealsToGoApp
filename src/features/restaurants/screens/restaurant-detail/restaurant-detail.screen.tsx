@@ -1,16 +1,17 @@
 import React, { useCallback, useState } from "react";
-
-import { useNavigation, useRoute } from "@react-navigation/native";
 import { ScrollView } from "react-native";
 import { List } from "react-native-paper";
-import { SafeArea } from "../../../../components/utilities/safe-area";
-import { RestaurantInfoCard } from "../../components/restaurant-info-card/restaurant-info-card.component";
-import { TRestaurantRoute } from "../../../../infrastructure/navigation/restaurant.navigator";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
 import { Spacer } from "../../../../components/spacer/spacer.component";
-import { OrderButton } from "../../components/order-button/order-button.component";
-import { Accordion } from "./restaurant-detail.styles";
-import { useCart } from "../../../../services/cart/cart.context";
+import { SafeArea } from "../../../../components/utilities/safe-area";
 import { TAppNavigation } from "../../../../infrastructure/navigation/app.navigator";
+import { TRestaurantRoute } from "../../../../infrastructure/navigation/restaurant.navigator";
+import { useCart } from "../../../../services/cart/cart.context";
+import { OrderButton } from "../../components/order-button/order-button.component";
+import { RestaurantInfoCard } from "../../components/restaurant-info-card/restaurant-info-card.component";
+
+import { Accordion } from "./restaurant-detail.styles";
 
 export const RestaurantDetailScreen = () => {
   const { params } = useRoute<TRestaurantRoute>();
@@ -51,7 +52,6 @@ export const RestaurantDetailScreen = () => {
     if (!params?.restaurant) {
       return;
     }
-
 
     cartContext.add(
       {

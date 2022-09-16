@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import styled, { useTheme, DefaultTheme } from "styled-components/native";
+import styled, { DefaultTheme, useTheme } from "styled-components/native";
 
 const sizeVariant = {
   small: 1,

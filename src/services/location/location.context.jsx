@@ -1,13 +1,15 @@
 import React, {
   createContext,
-  useState,
-  useEffect,
   useCallback,
   useContext,
+  useEffect,
+  useState,
 } from "react";
 import { unstable_batchedUpdates } from "react-native";
+
 import { useIsMounted } from "../../hooks/lifecycle-hooks";
-import { locationRequestAPI, locationAPITransform } from "./location.sevice";
+
+import { locationAPITransform, locationRequestAPI } from "./location.sevice";
 
 const LocationContext = createContext();
 

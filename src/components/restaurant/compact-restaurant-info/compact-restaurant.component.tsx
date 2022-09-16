@@ -1,12 +1,14 @@
 import React, { FunctionComponent } from "react";
+import { Platform } from "react-native";
+
+import { IRestaurant } from "../../../services/models/restaurant";
+import { Text } from "../../typography/text.component";
+
 import {
   CompactImage,
   CompactWebview,
   Item,
 } from "./compact-restaurant.styles";
-import { Text } from "../../typography/text.component";
-import { Platform } from "react-native";
-import { IRestaurant } from "../../../services/models/restaurant";
 
 const isAndroid = Platform.OS === "android";
 

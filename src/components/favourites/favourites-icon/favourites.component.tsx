@@ -1,8 +1,10 @@
 import React, { FunctionComponent } from "react";
-import { useFavoritesContext } from "../../../services/favorites/favourites.context";
-import { FavouriteButton } from "./favourites.styles";
 import { AntDesign } from "@expo/vector-icons";
+
+import { useFavoritesContext } from "../../../services/favorites/favourites.context";
 import { IRestaurant } from "../../../services/models/restaurant";
+
+import { FavouriteButton } from "./favourites.styles";
 interface FavouritesProps {
   restaurant: IRestaurant;
 }

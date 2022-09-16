@@ -1,6 +1,7 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useCallback } from "react";
 import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import { Spacer } from "../../../../components/spacer/spacer.component";
 import { TRestaurantNavigation } from "../../../../infrastructure/navigation/restaurant.navigator";
 import { IRestaurant } from "../../../../services/models/restaurant";

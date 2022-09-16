@@ -4,10 +4,11 @@ import {
   StackNavigationProp,
 } from "@react-navigation/stack";
 
-import { AccountScreen } from "./../../features/account/screens/account/account.screen";
 import { LoginScreen } from "../../features/account/screens/login/login.screen";
 import { RegisterScreen } from "../../features/account/screens/register/register.screen";
 import { theme } from "../theme";
+
+import { AccountScreen } from "./../../features/account/screens/account/account.screen";
 
 type AccountStackParamList = {
   MainAccountStack: undefined;

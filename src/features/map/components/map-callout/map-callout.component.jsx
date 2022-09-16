@@ -1,8 +1,9 @@
 import React from "react";
+
 import {
   CallOutContainer,
-  CalloutText,
   CalloutImage,
+  CalloutText,
 } from "./map-callout.styles";
 
 export const MapCallout = ({ restaurant }) => {

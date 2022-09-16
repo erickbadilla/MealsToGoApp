@@ -1,6 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Searchbar } from "react-native-paper";
+
 import { useLocation } from "../../../../services/location/location.context";
+
 import { SearchContainer } from "./search.styles";
 
 interface ISearchProps {

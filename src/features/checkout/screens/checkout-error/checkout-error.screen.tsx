@@ -1,5 +1,6 @@
-import { useRoute } from "@react-navigation/native";
 import React, { FunctionComponent } from "react";
+import { useRoute } from "@react-navigation/native";
+
 import { SafeArea } from "../../../../components/utilities/safe-area";
 import { TCheckoutRoute } from "../../../../infrastructure/navigation/checkout.navigator";
 import { colors } from "../../../../infrastructure/theme/colors";

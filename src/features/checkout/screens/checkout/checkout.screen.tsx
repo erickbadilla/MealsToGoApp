@@ -1,25 +1,26 @@
 import React, { useCallback, useEffect, useState } from "react";
-
+import { ScrollView } from "react-native-gesture-handler";
+import { List } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 import { CreateTokenResult, StripeProvider } from "@stripe/stripe-react-native";
-import { SafeArea } from "../../../../components/utilities/safe-area";
-import { CreditCardInput } from "../../components/credit-card/credit-card.component";
-import { useCart } from "../../../../services/cart/cart.context";
+
+import { Spacer } from "../../../../components/spacer/spacer.component";
 import { Text } from "../../../../components/typography/text.component";
+import { SafeArea } from "../../../../components/utilities/safe-area";
+import { TCheckoutNavigation } from "../../../../infrastructure/navigation/checkout.navigator";
+import { useCart } from "../../../../services/cart/cart.context";
+import { payRequest } from "../../../../services/checkout/checkout.service";
+import { capitalize } from "../../../../utils/capitilizeText";
+import { RestaurantInfoCard } from "../../../restaurants/components/restaurant-info-card/restaurant-info-card.component";
+import { CustomCardIcon } from "../../components/card-icon/card-icon.component";
+import { CreditCardInput } from "../../components/credit-card/credit-card.component";
+
 import {
   ClearButton,
   NameInput,
   PayButton,
   PaymentProcessing,
 } from "./checkout.styles";
-import { Spacer } from "../../../../components/spacer/spacer.component";
-import { RestaurantInfoCard } from "../../../restaurants/components/restaurant-info-card/restaurant-info-card.component";
-import { ScrollView } from "react-native-gesture-handler";
-import { List } from "react-native-paper";
-import { capitalize } from "../../../../utils/capitilizeText";
-import { payRequest } from "../../../../services/checkout/checkout.service";
-import { CustomCardIcon } from "../../components/card-icon/card-icon.component";
-import { useNavigation } from "@react-navigation/native";
-import { TCheckoutNavigation } from "../../../../infrastructure/navigation/checkout.navigator";
 
 export const CheckoutScreen = () => {
   const [cartSum, setCartSum] = useState<number>(0);

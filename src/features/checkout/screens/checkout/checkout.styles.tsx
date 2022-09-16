@@ -1,10 +1,11 @@
 import {
   ActivityIndicator,
   Button,
-  TextInput,
   Colors,
+  TextInput,
 } from "react-native-paper";
 import styled from "styled-components/native";
+
 import { colors } from "../../../../infrastructure/theme/colors";
 
 export const NameInput = styled(TextInput)`

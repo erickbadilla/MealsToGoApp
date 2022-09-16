@@ -1,15 +1,17 @@
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import React, { useCallback, useState } from "react";
-import { Avatar, List } from "react-native-paper";
 import { TouchableOpacity } from "react-native";
+import { Avatar, List } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { User } from "firebase/auth/react-native";
+
+import { Spacer } from "../../../../components/spacer/spacer.component";
+import { Text } from "../../../../components/typography/text.component";
 import { SafeArea } from "../../../../components/utilities/safe-area";
 import { SettingsNavigation } from "../../../../infrastructure/navigation/settings.navigator";
 import { useAuthentication } from "../../../../services/auth/authentication.context";
-import { SettingsItem, AvatarContainer, AvatarIcon } from "./settings.styles";
-import { Text } from "../../../../components/typography/text.component";
-import { Spacer } from "../../../../components/spacer/spacer.component";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { User } from "firebase/auth/react-native";
+
+import { AvatarContainer, AvatarIcon, SettingsItem } from "./settings.styles";
 export const SettingsScreen = () => {
   const [userPhoto, setUserPhoto] = useState<string>("");
 

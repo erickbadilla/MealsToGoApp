@@ -1,5 +1,5 @@
-import styled from "styled-components/native";
 import { CardField } from "@stripe/stripe-react-native";
+import styled from "styled-components/native";
 
 interface ICardInputProps {
   hidden: boolean;

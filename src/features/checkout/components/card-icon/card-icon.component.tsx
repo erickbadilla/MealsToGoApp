@@ -1,7 +1,9 @@
 import React, { FunctionComponent } from "react";
+
 import { Spacer } from "../../../../components/spacer/spacer.component";
-import { CartIcon, CartIconContainer } from "./card-icon.styles";
 import { Text } from "../../../../components/typography/text.component";
+
+import { CartIcon, CartIconContainer } from "./card-icon.styles";
 
 interface ICardIconProps {
   iconName: string;

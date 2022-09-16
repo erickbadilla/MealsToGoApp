@@ -1,15 +1,15 @@
 import React, { FunctionComponent } from "react";
+import { RouteProp } from "@react-navigation/native";
 import {
+  CardStyleInterpolators,
   createStackNavigator,
   StackNavigationProp,
-  CardStyleInterpolators,
 } from "@react-navigation/stack";
 
-import { theme } from "../theme";
 import { CheckoutScreen } from "../../features/checkout/screens/checkout/checkout.screen";
-import { RouteProp } from "@react-navigation/native";
-import { CheckoutSuccessScreen } from "../../features/checkout/screens/checkout-success/checkout-success.screen";
 import { CheckoutErrorScreen } from "../../features/checkout/screens/checkout-error/checkout-error.screen";
+import { CheckoutSuccessScreen } from "../../features/checkout/screens/checkout-success/checkout-success.screen";
+import { theme } from "../theme";
 
 type CheckoutStackParamList = {
   Checkout: undefined;

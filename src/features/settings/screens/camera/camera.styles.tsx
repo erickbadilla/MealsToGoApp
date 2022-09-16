@@ -1,6 +1,5 @@
-import styled from "styled-components/native";
-
 import { Camera as ExpoCamera } from "expo-camera";
+import styled from "styled-components/native";
 
 export const ProfileCamera = styled(ExpoCamera)`
   width: 100%;

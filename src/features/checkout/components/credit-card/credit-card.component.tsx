@@ -1,11 +1,12 @@
 import React, { FunctionComponent } from "react";
-
 import {
   CardFieldInput,
   CreateTokenResult,
   useStripe,
 } from "@stripe/stripe-react-native";
+
 import { isDevelopment } from "../../../../utils/enviroment";
+
 import { CardInput } from "./credit-card.styles";
 
 /**
