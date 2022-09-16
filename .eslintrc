@@ -1,18 +1,12 @@
 {
   "extends": "@react-native-community",
-  "plugins": ["simple-import-sort"],
+  "plugins": ["react", "simple-import-sort"],
   "rules": {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+
     "quotes": [2, "double", { "avoidEscape": true }],
-    "comma-dangle": "off",
-    "sort-imports": [
-      "error",
-      {
-        "ignoreCase": true,
-        "ignoreDeclarationSort": true
-      }
-    ]
+    "comma-dangle": "off"
   },
   "overrides": [
     {
