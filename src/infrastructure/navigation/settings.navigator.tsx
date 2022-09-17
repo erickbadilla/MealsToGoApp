@@ -24,6 +24,7 @@ export const SettingsNavigator: FunctionComponent = () => (
   <Stack.Navigator
     screenOptions={{
       headerMode: "screen",
+      headerShown: false,
       cardStyle: { backgroundColor: theme.colors.bg.primary },
       cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     }}

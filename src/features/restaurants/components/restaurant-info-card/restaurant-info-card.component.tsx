@@ -45,7 +45,7 @@ export const RestaurantInfoCard: FunctionComponent<
   );
 
   return (
-    <RestaurantCard elevation={5}>
+    <RestaurantCard elevation={2}>
       <Favourite restaurant={restaurant} />
       <RestaurantCardCover source={{ uri: photos[0] }} />
       <Info>

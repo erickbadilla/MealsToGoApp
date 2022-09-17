@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { List } from "react-native-paper";
+import { Divider, List } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { CreateTokenResult, StripeProvider } from "@stripe/stripe-react-native";
 
@@ -112,6 +112,10 @@ export const CheckoutScreen = () => {
 
             <Text>Total: ${cartSum / 100}</Text>
           </Spacer>
+
+          <Spacer size="medium" />
+
+          <Divider />
 
           <NameInput
             label="Name"

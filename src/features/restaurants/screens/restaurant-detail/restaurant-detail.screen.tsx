@@ -5,6 +5,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { Spacer } from "../../../../components/spacer/spacer.component";
 import { SafeArea } from "../../../../components/utilities/safe-area";
+import { withDivider } from "../../../../hocs/with-divider/with-divider.hoc";
 import { TAppNavigation } from "../../../../infrastructure/navigation/app.navigator";
 import { TRestaurantRoute } from "../../../../infrastructure/navigation/restaurant.navigator";
 import { useCart } from "../../../../services/cart/cart.context";
@@ -13,6 +14,9 @@ import { OrderButton } from "../../components/order-button/order-button.componen
 import { RestaurantInfoCard } from "../../components/restaurant-info-card/restaurant-info-card.component";
 
 import { Accordion } from "./restaurant-detail.styles";
+
+const AccordionWithDivider = withDivider(Accordion);
+const ListItemWithDivider = withDivider(List.Item);
 
 export const RestaurantDetailScreen = () => {
   const { params } = useRoute<TRestaurantRoute>();
@@ -67,48 +71,56 @@ export const RestaurantDetailScreen = () => {
 
   return (
     <SafeArea>
-      <RestaurantInfoCard restaurant={params?.restaurant as IRestaurant} />
+      <Spacer position="bottom">
+        <RestaurantInfoCard restaurant={params?.restaurant as IRestaurant} />
+      </Spacer>
 
       <ScrollView>
-        <Accordion
+        <AccordionWithDivider
           title="Breakfast"
           left={BreakfastIcon}
           expanded={breakfastExpanded}
           onPress={handleBreakfastPress}
         >
-          <List.Item title="Eggs Benedict" />
-          <List.Item title="Classic Breakfast" />
-        </Accordion>
+          <ListItemWithDivider title="Gallo Pinto" />
+          <ListItemWithDivider title="Tortilla con Cuajada" />
+        </AccordionWithDivider>
 
-        <Accordion
+        <AccordionWithDivider
           title="Lunch"
           left={LunchIcon}
           expanded={launchExpanded}
           onPress={handleLaunchExpanded}
         >
-          <List.Item title="Eggs Benedict" />
-          <List.Item title="Classic Breakfast" />
-        </Accordion>
+          <ListItemWithDivider title="Gallo Pinto con Bisteck" />
+          <ListItemWithDivider title="Sopa de res" />
+          <ListItemWithDivider title="Casado del día" />
+        </AccordionWithDivider>
 
-        <Accordion
+        <AccordionWithDivider
           title="Dinner"
           left={DinnerIcon}
           expanded={dinnerExpanded}
           onPress={handleDinnerExpanded}
         >
-          <List.Item title="Eggs Benedict" />
-          <List.Item title="Classic Breakfast" />
-        </Accordion>
+          <ListItemWithDivider title="Tamal de Cerdo" />
+          <ListItemWithDivider title="Tamal de Elote" />
+          <ListItemWithDivider title="Sopa de Pollo" />
+        </AccordionWithDivider>
 
-        <Accordion
+        <AccordionWithDivider
           title="Drinks"
           left={DrinksIcon}
           expanded={drinksExpanded}
           onPress={handleDrinksExpanded}
         >
-          <List.Item title="Eggs Benedict" />
-          <List.Item title="Classic Breakfast" />
-        </Accordion>
+          <ListItemWithDivider title="Cafe con leche" />
+          <ListItemWithDivider title="Agua 1L" />
+          <ListItemWithDivider title="Horchata" />
+          <ListItemWithDivider title="Pinolillo" />
+          <ListItemWithDivider title="Coca Cola" />
+          <ListItemWithDivider title="Fanta" />
+        </AccordionWithDivider>
       </ScrollView>
 
       <Spacer position="bottom" size="large">

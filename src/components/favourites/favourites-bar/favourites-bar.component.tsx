@@ -23,7 +23,7 @@ export const FavouriteBar: FunctionComponent<IFavouriteBarProps> = ({
   }
 
   return (
-    <FavouriteWrapper>
+    <FavouriteWrapper elevation={3}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {favourites.map((favourite) => {
           const key = favourite.name;

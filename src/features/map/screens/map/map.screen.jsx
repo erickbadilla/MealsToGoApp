@@ -32,7 +32,7 @@ const RestaurantMap = () => {
           latitude: lat,
           longitude: lng,
           latitudeDelta: latDelta,
-          longitudeDelta: 0.0922 * latDelta,
+          longitudeDelta: 0.01,
         }}
       >
         {restaurants.map((restaurant) => (

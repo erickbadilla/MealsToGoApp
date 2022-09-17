@@ -11,6 +11,7 @@ import { CartContextProvider } from "../../services/cart/cart.context";
 import { FavoritesProvider } from "../../services/favorites/favourites.context";
 import { LocationContextProvider } from "../../services/location/location.context";
 import { RestaurantsContextProvider } from "../../services/restaurants/restaurant.context";
+import { colors } from "../theme/colors";
 
 import { CheckoutNavigator } from "./checkout.navigator";
 import { RestaurantNavigator } from "./restaurant.navigator";
@@ -43,8 +44,8 @@ const createScreenOptions = ({
       //@ts-ignore
       <Ionicons name={iconName} size={size} color={color} />
     ),
-    tabBarActiveTintColor: "tomato",
-    tabBarInactiveTintColor: "gray",
+    tabBarActiveTintColor: colors.brand.primary,
+    tabBarInactiveTintColor: colors.brand.muted,
     headerShown: false,
   };
 };
@@ -66,7 +67,7 @@ export const AppNavigator = () => {
               <Tab.Screen
                 name="CheckoutTab"
                 component={CheckoutNavigator}
-                options={{ title: "Checkout" }}
+                options={{ title: "Checkout", unmountOnBlur: true }}
               />
               <Tab.Screen
                 name="MapTab"
