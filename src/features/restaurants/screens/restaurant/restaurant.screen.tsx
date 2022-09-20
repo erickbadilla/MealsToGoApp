@@ -30,6 +30,7 @@ export const RestaurantsScreen: FunctionComponent = () => {
   const [isToggled, setIsToggled] = useState<boolean>(false);
 
   const keyExtractor = useCallback(({ name }) => name, []);
+
   const renderItem = useCallback<FunctionComponent<{ item: IRestaurant }>>(
     ({ item }) => (
       <FadeInView duration={800}>
@@ -38,6 +39,7 @@ export const RestaurantsScreen: FunctionComponent = () => {
     ),
     []
   );
+
   const getItemLayout = useCallback(
     (_data: IRestaurant[] | null | undefined, index: number) => ({
       length: RESTAURANT_ITEM_HEIGHT,
